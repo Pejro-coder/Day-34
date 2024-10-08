@@ -10,19 +10,35 @@ class QuizBrain:
         return self.question_number < len(self.question_list)
 
     def next_question(self):
+        # print(self.question_number)
         self.current_question = self.question_list[self.question_number]
-        self.question_number += 1
         return f"Q.{self.question_number}: {self.current_question.text}"
         # user_answer = input(f"Q.{self.question_number}: {self.current_question.text} (True/False): ")
         # self.check_answer(user_answer)
 
-    def check_answer(self, user_answer):
-        correct_answer = self.current_question.answer
-        if user_answer.lower() == correct_answer.lower():
+    def check_answer(self, choice):
+        # correct_answer = self.current_question.answer
+        # print(self.question_number)
+        print(self.question_list[self.question_number].text)
+        print(choice, type(choice))
+        print(self.question_list[self.question_number].answer, type(self.question_list[self.question_number].answer))
+        if choice == self.question_list[self.question_number].answer:
             self.score += 1
             print("You got it right!")
         else:
             print("That's wrong.")
-
+        self.question_number += 1
         print(f"Your current score is: {self.score}/{self.question_number}")
-        print("\n")
+        print(self.question_list[self.question_number].text, self.question_list[self.question_number].answer)
+        print("")
+
+    # def check_answer(self, user_answer):
+    #     correct_answer = self.current_question.answer
+    #     if user_answer.lower() == correct_answer.lower():
+    #         self.score += 1
+    #         print("You got it right!")
+    #     else:
+    #         print("That's wrong.")
+    #
+    #     print(f"Your current score is: {self.score}/{self.question_number}")
+    #     print("\n")
