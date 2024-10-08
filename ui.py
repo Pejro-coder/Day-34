@@ -43,7 +43,7 @@ class QuizInterface:
         self.canvas.itemconfig(self.question_text, text=question_text)
 
     def choice_true(self):
-        self.quiz.check_answer("True")
+        self.quiz.check_answer("True") # I thought the "True" was boolean but it was string...
         self.get_next_question()
 
     def choice_false(self):

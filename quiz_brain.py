@@ -27,7 +27,8 @@ class QuizBrain:
             print("You got it right!")
         else:
             print("That's wrong.")
-        self.question_number += 1
+        self.question_number += 1 # TALE SHIT JE BIL PREJ POD next_question (zgoraj) in se je zato taled del:
+        # choice == self.question_list[self.question_number].answer primerjal z naslednjim vprašanjem, ne s trenutnim
         print(f"Your current score is: {self.score}/{self.question_number}")
         print(self.question_list[self.question_number].text, self.question_list[self.question_number].answer)
         print("")
