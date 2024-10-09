@@ -35,6 +35,7 @@ class QuizInterface:
         self.button_false.grid(column=1, row=2)
 
         self.get_next_question()
+        self.quiz.q_number_text_answers()
 
         self.window.mainloop()
 
@@ -43,9 +44,17 @@ class QuizInterface:
         self.canvas.itemconfig(self.question_text, text=question_text)
 
     def choice_true(self):
-        self.quiz.check_answer("True") # I thought the "True" was boolean but it was string...
-        self.get_next_question()
+        if self.quiz.question_number == 9:
+            self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            self.window.quit()
+        else:
+            self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            self.get_next_question()
 
     def choice_false(self):
         self.quiz.check_answer("False")
-        self.get_next_question()
+        if self.quiz.question_number == 9:
+            self.window.quit()
+        else:
+            self.quiz.check_answer("False")
+            self.get_next_question()

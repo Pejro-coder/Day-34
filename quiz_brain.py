@@ -9,29 +9,31 @@ class QuizBrain:
     def still_has_questions(self):
         return self.question_number < len(self.question_list)
 
+    # Method that prints all the questions and answers at the start:
+    def q_number_text_answers(self):
+        for question in self.question_list:
+            print(f"Nb:{self.question_list.index(question) + 1} {question.text} {question.answer}")
+
     def next_question(self):
-        # print(self.question_number)
+        print(self.question_number)
         self.current_question = self.question_list[self.question_number]
-        return f"Q.{self.question_number}: {self.current_question.text}"
+        return f"Q.{self.question_number + 1}: {self.current_question.text}"
         # user_answer = input(f"Q.{self.question_number}: {self.current_question.text} (True/False): ")
         # self.check_answer(user_answer)
 
     def check_answer(self, choice):
-        # correct_answer = self.current_question.answer
-        # print(self.question_number)
-        print(self.question_list[self.question_number].text)
-        print(choice, type(choice))
-        print(self.question_list[self.question_number].answer, type(self.question_list[self.question_number].answer))
         if choice == self.question_list[self.question_number].answer:
             self.score += 1
             print("You got it right!")
         else:
             print("That's wrong.")
-        self.question_number += 1 # TALE SHIT JE BIL PREJ POD next_question (zgoraj) in se je zato taled del:
+        self.question_number += 1  # TALE SHIT JE BIL PREJ POD next_question (zgoraj) in se je zato taled del:
         # choice == self.question_list[self.question_number].answer primerjal z naslednjim vprašanjem, ne s trenutnim
-        print(f"Your current score is: {self.score}/{self.question_number}")
-        print(self.question_list[self.question_number].text, self.question_list[self.question_number].answer)
-        print("")
+        if self.question_number < 10:
+            print(f"Your current score is: {self.score}/{self.question_number}")
+            print(f"Nb:{self.question_number + 1} {self.question_list[self.question_number].text} "
+                  f"{self.question_list[self.question_number].answer}")
+            print("")
 
     # def check_answer(self, user_answer):
     #     correct_answer = self.current_question.answer
