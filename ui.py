@@ -13,7 +13,8 @@ class QuizInterface:
         self.window.config(padx=20, pady=20, background=THEME_COLOR)
 
         # row 1 - Score label
-        self.score_label = Label(text=f"{self.quiz.score}/{self.quiz.question_number}", width=15, bg=THEME_COLOR, fg="white")
+        self.score_label = Label(text=f"{self.quiz.score}/{self.quiz.question_number}", width=15, bg=THEME_COLOR,
+                                 fg="white")
         self.score_label.grid(column=1, row=0)
 
         # row 2 - QUOTE canvas
@@ -43,23 +44,44 @@ class QuizInterface:
         question_text = self.quiz.next_question()
         self.canvas.itemconfig(self.question_text, text=question_text)
 
+    # Next two functions take care of the red color flash, when the answer is wrong
+    def change_to_white(self):
+        # Change the background to white
+        self.canvas.config(background="white")
+
+    def flash_color(self, result):
+        if result == "red":
+            self.canvas.config(background="red")
+            # Call another function to change the background to white after 1 second
+            self.window.after(200, self.change_to_white)
+        elif result == "green":
+            self.canvas.config(background="green")
+            # Call another function to change the background to white after 1 second
+            self.window.after(200, self.change_to_white)
+
+    # Function that takes care of what happens when the "true" button is pressed
     def choice_true(self):
         if self.quiz.question_number == 9:
-            self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            result = self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            self.flash_color(result)
             self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.window.quit()
         else:
-            self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            result = self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            self.flash_color(result)
             self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.get_next_question()
 
+    # Function that takes care of what happens when the "false" button is pressed
     def choice_false(self):
         if self.quiz.question_number == 9:
-            self.quiz.check_answer("False")
+            result = self.quiz.check_answer("False")
+            self.flash_color(result)
             self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.window.quit()
         else:
-            self.quiz.check_answer("False")
+            result = self.quiz.check_answer("False")
+            self.flash_color(result)
             self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.get_next_question()
         # self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")

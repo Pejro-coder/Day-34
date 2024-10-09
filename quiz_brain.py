@@ -25,8 +25,10 @@ class QuizBrain:
         if choice == self.question_list[self.question_number].answer:
             self.score += 1
             print("You got it right!")
+            flash = "green"
         else:
             print("That's wrong.")
+            flash = "red"
         self.question_number += 1  # TALE SHIT JE BIL PREJ POD next_question (zgoraj) in se je zato taled del:
         # choice == self.question_list[self.question_number].answer primerjal z naslednjim vprašanjem, ne s trenutnim
         if self.question_number < 10:
@@ -34,6 +36,7 @@ class QuizBrain:
             print(f"Nb:{self.question_number + 1} {self.question_list[self.question_number].text} "
                   f"{self.question_list[self.question_number].answer}")
             print("")
+        return flash
 
     # def check_answer(self, user_answer):
     #     correct_answer = self.current_question.answer
