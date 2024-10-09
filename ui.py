@@ -13,7 +13,7 @@ class QuizInterface:
         self.window.config(padx=20, pady=20, background=THEME_COLOR)
 
         # row 1 - Score label
-        self.score_label = Label(text="Score:", width=15, bg=THEME_COLOR, fg="white")
+        self.score_label = Label(text=f"{self.quiz.score}/{self.quiz.question_number}", width=15, bg=THEME_COLOR, fg="white")
         self.score_label.grid(column=1, row=0)
 
         # row 2 - QUOTE canvas
@@ -46,15 +46,20 @@ class QuizInterface:
     def choice_true(self):
         if self.quiz.question_number == 9:
             self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.window.quit()
         else:
             self.quiz.check_answer("True")  # I thought the "True" was boolean, but it was string...
+            self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.get_next_question()
 
     def choice_false(self):
-        self.quiz.check_answer("False")
         if self.quiz.question_number == 9:
+            self.quiz.check_answer("False")
+            self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.window.quit()
         else:
             self.quiz.check_answer("False")
+            self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
             self.get_next_question()
+        # self.score_label.config(text=f"{self.quiz.score}/{self.quiz.question_number}")
