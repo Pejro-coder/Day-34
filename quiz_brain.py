@@ -10,41 +10,21 @@ class QuizBrain:
         return self.question_number < len(self.question_list)
 
     # Method that prints all the questions and answers at the start:
-    def q_number_text_answers(self):
+    def quiz_list(self):
         for question in self.question_list:
             print(f"Nb:{self.question_list.index(question) + 1} {question.text} {question.answer}")
 
     def next_question(self):
-        print(self.question_number)
         self.current_question = self.question_list[self.question_number]
-        return f"Q.{self.question_number + 1}: {self.current_question.text}"
-        # user_answer = input(f"Q.{self.question_number}: {self.current_question.text} (True/False): ")
-        # self.check_answer(user_answer)
+
+        self.question_number += 1
+        return f"Q.{self.question_number}: {self.current_question.text}"
 
     def check_answer(self, choice):
-        if choice == self.question_list[self.question_number].answer:
-            self.score += 1
-            print("You got it right!")
-            flash = "green"
-        else:
-            print("That's wrong.")
-            flash = "red"
-        self.question_number += 1  # TALE SHIT JE BIL PREJ POD next_question (zgoraj) in se je zato taled del:
-        # choice == self.question_list[self.question_number].answer primerjal z naslednjim vprašanjem, ne s trenutnim
-        if self.question_number < 10:
-            print(f"Your current score is: {self.score}/{self.question_number}")
-            print(f"Nb:{self.question_number + 1} {self.question_list[self.question_number].text} "
-                  f"{self.question_list[self.question_number].answer}")
-            print("")
-        return flash
-
-    # def check_answer(self, user_answer):
-    #     correct_answer = self.current_question.answer
-    #     if user_answer.lower() == correct_answer.lower():
-    #         self.score += 1
-    #         print("You got it right!")
-    #     else:
-    #         print("That's wrong.")
-    #
-    #     print(f"Your current score is: {self.score}/{self.question_number}")
-    #     print("\n")
+        if self.question_number < len(self.question_list):
+            if choice == self.question_list[self.question_number-1].answer:
+                self.score += 1
+                flash = "green"
+            else:
+                flash = "red"
+            return flash
